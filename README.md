@@ -50,3 +50,4 @@ https://qiita.com/thonma616/items/511054d966419a6f47b5
 # その他参考にした記事
 - https://qiita.com/sakasegawa/items/db2cff79bd14faf2c8e0
 - https://qiita.com/1ntegrale9/items/9d570ef8175cf178468f
+- https://note.com/fladdict/n/neff2e9d52224
