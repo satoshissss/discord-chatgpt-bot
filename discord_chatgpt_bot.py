@@ -1,10 +1,11 @@
 import os
 import pickle
 
-import chatgpt_api
-import chatgpt_settings
 import discord
 import openai
+
+import chatgpt_api
+import chatgpt_settings
 
 # 以下2つを自分のトークンに置換
 openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -14,7 +15,7 @@ INIT_TOKEN = 1000
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
-system_settings = chatgpt_settings.NEO_HORO_DISCODE_BOT_SETTINGS
+system_settings = chatgpt_settings.NEO_HORO_DISCODE_BOT_SETTINGS_V2
 
 
 def init_save_object():
@@ -82,11 +83,11 @@ async def on_message(message):
                 save_object["pop_tokens"] = 0
 
             # デバック用
-            # print(len(save_object["messages"]))
-            # print(save_object["tokenlog"])
-            # print(save_object["tokens"])
-            # print(sum(save_object["total_tokens_history"]))
-            # print(save_object["total_tokens_history"])
+            print(len(save_object["messages"]))
+            print(save_object["tokenlog"])
+            print(save_object["tokens"])
+            print(sum(save_object["total_tokens_history"]))
+            print(save_object["total_tokens_history"])
 
             with open("./db.pkl", "wb") as f:
                 pickle.dump(save_object, f)
