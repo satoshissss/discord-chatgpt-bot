@@ -15,7 +15,7 @@ INIT_TOKEN = 1000
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
-system_settings = chatgpt_settings.NEO_HORO_DISCODE_BOT_SETTINGS_V2
+system_settings = chatgpt_settings.NEO_HORO_DISCODE_BOT_SETTINGS_V3
 
 
 def init_save_object():
@@ -47,6 +47,7 @@ async def on_message(message):
                 os.remove("db.pkl")
 
         else:
+            bot_message = await message.channel.send("...🍎(ムシャムシャ")
             (
                 new_message,
                 save_object["messages"],
@@ -67,7 +68,7 @@ async def on_message(message):
                     save_object["tokens"][-1] - save_object["tokens"][-2]
                 )
 
-            await message.channel.send(new_message)
+            await bot_message.edit(content=new_message)
 
             while sum(save_object["total_tokens_history"]) > 3000:
                 # print("delete messages")
@@ -83,17 +84,18 @@ async def on_message(message):
                 save_object["pop_tokens"] = 0
 
             # デバック用
-            print(len(save_object["messages"]))
-            print(save_object["tokenlog"])
-            print(save_object["tokens"])
-            print(sum(save_object["total_tokens_history"]))
-            print(save_object["total_tokens_history"])
+            # print(len(save_object["messages"]))
+            # print(save_object["tokenlog"])
+            # print(save_object["tokens"])
+            # print(sum(save_object["total_tokens_history"]))
+            # print(save_object["total_tokens_history"])
 
             with open("./db.pkl", "wb") as f:
                 pickle.dump(save_object, f)
 
     except Exception as e:
         # print(e)
+
         await message.channel.send(f"エラーが発生しました。プログラムをリセットします。 ```Error: {e}```")
         save_object = init_save_object()
         if os.path.isfile("db.pkl"):
